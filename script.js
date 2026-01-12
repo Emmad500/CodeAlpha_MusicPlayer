@@ -47,6 +47,10 @@ function loadMusic(indexNumb) {
     musicArtist.innerText = allMusic[indexNumb - 1].artist;
     musicImg.src = `images/${allMusic[indexNumb - 1].img}`;
     mainAudio.src = `songs/${allMusic[indexNumb - 1].src}.mp3`;
+
+    // Reset timers to avoid showing old or invalid time
+    wrapper.querySelector(".current-time").innerText = "0:00";
+    wrapper.querySelector(".max-duration").innerText = "0:00";
 }
 
 // Play Music Function
@@ -95,25 +99,30 @@ prevBtn.addEventListener("click", prevMusic);
 mainAudio.addEventListener("timeupdate", (e) => {
     const currentTime = e.target.currentTime;
     const duration = e.target.duration;
-    let progressWidth = (currentTime / duration) * 100;
-    progressBar.style.width = `${progressWidth}%`;
 
-    let musicCurrentTime = wrapper.querySelector(".current-time"),
-        musicDuration = wrapper.querySelector(".max-duration");
+    if (!isNaN(duration)) {
+        let progressWidth = (currentTime / duration) * 100;
+        progressBar.style.width = `${progressWidth}%`;
 
-    let currentMin = Math.floor(currentTime / 60);
-    let currentSec = Math.floor(currentTime % 60);
-    if (currentSec < 10) currentSec = `0${currentSec}`;
-    musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
+        let musicCurrentTime = wrapper.querySelector(".current-time");
+        let currentMin = Math.floor(currentTime / 60);
+        let currentSec = Math.floor(currentTime % 60);
+        if (currentSec < 10) currentSec = `0${currentSec}`;
+        musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
+    }
 });
 
-mainAudio.addEventListener("loadeddata", () => {
+// Update Duration when metadata is loaded
+mainAudio.addEventListener("loadedmetadata", () => {
     let musicDuration = wrapper.querySelector(".max-duration");
     let mainAdDuration = mainAudio.duration;
-    let totalMin = Math.floor(mainAdDuration / 60);
-    let totalSec = Math.floor(mainAdDuration % 60);
-    if (totalSec < 10) totalSec = `0${totalSec}`;
-    musicDuration.innerText = `${totalMin}:${totalSec}`;
+
+    if (!isNaN(mainAdDuration)) {
+        let totalMin = Math.floor(mainAdDuration / 60);
+        let totalSec = Math.floor(mainAdDuration % 60);
+        if (totalSec < 10) totalSec = `0${totalSec}`;
+        musicDuration.innerText = `${totalMin}:${totalSec}`;
+    }
 });
 
 // Click Progress Bar
@@ -121,8 +130,10 @@ progressArea.addEventListener("click", (e) => {
     let progressWidth = progressArea.clientWidth;
     let clickedOffsetX = e.offsetX;
     let songDuration = mainAudio.duration;
-    mainAudio.currentTime = (clickedOffsetX / progressWidth) * songDuration;
-    playMusic();
+    if (!isNaN(songDuration)) {
+        mainAudio.currentTime = (clickedOffsetX / progressWidth) * songDuration;
+        playMusic();
+    }
 });
 
 // Autoplay

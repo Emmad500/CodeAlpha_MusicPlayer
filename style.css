@@ -41,7 +41,7 @@ body{
 }
 
 /* Layout */
-.top-bar, .progress-area, .song-timer, .controls, .music-list .header, .music-list li{
+.top-bar, .song-timer, .controls, .music-list .header, .music-list li{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -106,6 +106,15 @@ body{
     font-size: 15px;
     opacity: 0.8;
     color: var(--pink);
+}
+
+.progress-area{
+    height: 6px;
+    width: 100%;
+    border-radius: 50px;
+    background: #f0f0f04d;
+    cursor: pointer;
+    margin-bottom: 5px; /* Add space between bar and timer */
 }
 
 .progress-area .progress-bar{
@@ -194,6 +203,7 @@ body{
     justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .volume-cont i { font-size: 18px; color: var(--pink); -webkit-text-fill-color: var(--pink); }
 .volume-slider { width: 50%; cursor: pointer; accent-color: var(--pink); }
