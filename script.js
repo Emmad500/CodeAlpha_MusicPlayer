@@ -19,19 +19,19 @@ let allMusic = [
     {
         name: "Song 1",
         artist: "Artist 1",
-        img: "img-1",   // You must have 'images/img-1.jpg'
-        src: "music-1"  // You must have 'songs/music-1.mp3'
+        img: "img-1.jpg",
+        src: "music-1"
     },
     {
         name: "Song 2",
         artist: "Artist 2",
-        img: "img-2",
+        img: "img-2.png",
         src: "music-2"
     },
     {
         name: "Song 3",
         artist: "Artist 3",
-        img: "img-3",
+        img: "img-3.png",
         src: "music-3"
     }
 ];
@@ -45,14 +45,14 @@ window.addEventListener("load", () => {
 function loadMusic(indexNumb) {
     musicName.innerText = allMusic[indexNumb - 1].name;
     musicArtist.innerText = allMusic[indexNumb - 1].artist;
-    musicImg.src = `images/${allMusic[indexNumb - 1].img}.jpg`;
+    musicImg.src = `images/${allMusic[indexNumb - 1].img}`;
     mainAudio.src = `songs/${allMusic[indexNumb - 1].src}.mp3`;
 }
 
 // Play Music Function
 function playMusic() {
     wrapper.classList.add("paused");
-    wrapper.classList.add("playing"); 
+    wrapper.classList.add("playing");
     playPauseBtn.querySelector("i").classList.remove("fa-play-circle");
     playPauseBtn.querySelector("i").classList.add("fa-pause-circle");
     mainAudio.play();
@@ -61,7 +61,7 @@ function playMusic() {
 // Pause Music Function
 function pauseMusic() {
     wrapper.classList.remove("paused");
-    wrapper.classList.remove("playing"); 
+    wrapper.classList.remove("playing");
     playPauseBtn.querySelector("i").classList.add("fa-play-circle");
     playPauseBtn.querySelector("i").classList.remove("fa-pause-circle");
     mainAudio.pause();
@@ -105,14 +105,15 @@ mainAudio.addEventListener("timeupdate", (e) => {
     let currentSec = Math.floor(currentTime % 60);
     if (currentSec < 10) currentSec = `0${currentSec}`;
     musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
+});
 
-    mainAudio.addEventListener("loadeddata", () => {
-        let mainAdDuration = mainAudio.duration;
-        let totalMin = Math.floor(mainAdDuration / 60);
-        let totalSec = Math.floor(mainAdDuration % 60);
-        if (totalSec < 10) totalSec = `0${totalSec}`;
-        musicDuration.innerText = `${totalMin}:${totalSec}`;
-    });
+mainAudio.addEventListener("loadeddata", () => {
+    let musicDuration = wrapper.querySelector(".max-duration");
+    let mainAdDuration = mainAudio.duration;
+    let totalMin = Math.floor(mainAdDuration / 60);
+    let totalSec = Math.floor(mainAdDuration % 60);
+    if (totalSec < 10) totalSec = `0${totalSec}`;
+    musicDuration.innerText = `${totalMin}:${totalSec}`;
 });
 
 // Click Progress Bar
