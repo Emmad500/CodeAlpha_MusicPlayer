@@ -1,0 +1,68 @@
+<!--Task 4: Music Player using JavaScript -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="top-bar">
+            <i class="fas fa-angle-down"></i>
+            <span>Now Playing</span>
+            <i class="fas fa-ellipsis-h"></i>
+        </div>
+
+        <div class="img-area">
+            <img src="images/img-1.jpg" alt="" class="image">
+        </div>
+
+        <div class="song-details">
+            <p class="name">Song Name</p>
+            <p class="artist">Artist Name</p>
+        </div>
+
+        <div class="progress-area">
+            <div class="progress-bar">
+                <audio id="main-audio" src=""></audio>
+            </div>
+            <div class="song-timer">
+                <span class="current-time">0:00</span>
+                <span class="max-duration">0:00</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <i id="repeat-plist" class="fas fa-redo" title="Playlist looped"></i>
+            <i id="prev" class="fas fa-step-backward"></i>
+            <div class="play-pause">
+                <i class="fas fa-play-circle"></i>
+            </div>
+            <i id="next" class="fas fa-step-forward"></i>
+            <i id="more-music" class="fas fa-list"></i>
+        </div>
+
+        <div class="volume-cont">
+            <i class="fas fa-volume-up"></i>
+            <input type="range" min="0" max="100" value="99" class="volume-slider">
+        </div>
+
+        <div class="music-list">
+            <div class="header">
+                <div class="row">
+                    <i class="fas fa-list-ul"></i>
+                    <span>Music List</span>
+                </div>
+                <i id="close" class="fas fa-times"></i>
+            </div>
+            <ul>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
